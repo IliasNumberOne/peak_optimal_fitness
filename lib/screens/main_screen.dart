@@ -43,7 +43,7 @@ class MainScreen extends StatelessWidget {
                         ActivityCard(
                           activity: activities[0],
                           number: (activity.waterGlass * 0.25).toString(),
-                          lastDate: activity.waterActivity[1],
+                          // lastDate: activity.waterActivity[1],
                         ),
                         SizedBox(height: 16.h),
                         ActivityCard(
