@@ -72,6 +72,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/icons/
+    - assets/images/workouts/
     - assets/images/tap_bar/
     - assets/images/activity_icons/
   #   - images/a_dot_ham.jpeg

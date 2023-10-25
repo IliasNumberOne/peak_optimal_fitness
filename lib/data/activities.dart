@@ -1,4 +1,4 @@
-import 'models.dart';
+import 'package:peak_optimal/models/models.dart';
 
 final List<Activity> activities = [
   const Activity(

@@ -1,4 +1,4 @@
-import 'package:peak_optimal/data/data.dart';
+import 'package:peak_optimal/models/models.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 const weightTable = 'weight_table';

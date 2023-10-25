@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:peak_optimal/data/data.dart';
+import 'package:peak_optimal/models/models.dart';
 import 'package:peak_optimal/services/services.dart';
 import 'package:peak_optimal/utils/utils.dart';
 
