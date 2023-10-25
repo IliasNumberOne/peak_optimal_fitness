@@ -11,6 +11,33 @@ class ThemeColors {
   static Color red = const Color(0xFFE44242);
   static Color blue = const Color(0xFF6E8EFF);
   static Color shadow = const Color(0x40000000);
+
+  static const LinearGradient gradient1 = LinearGradient(
+    colors: [
+      Color(0xFFFFC622),
+      Color(0xFFFFBE00),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static LinearGradient gradient2 = LinearGradient(
+    colors: [
+      gray,
+      gray,
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static LinearGradient gradient3 = LinearGradient(
+    colors: [
+      Colors.black.withOpacity(0),
+      Colors.black.withOpacity(1),
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
 }
 
 class ThemeStyles {
@@ -67,6 +94,8 @@ class ThemeStyles {
   static final TextStyle textStyle8 = TextStyle(
     fontSize: 15.sp,
     fontWeight: FontWeight.w700,
+    height: 19 / 15,
+    letterSpacing: -0.3,
     color: ThemeColors.orange,
   );
 

@@ -1,6 +1,5 @@
+import 'package:peak_optimal/data/stretching_workouts.dart';
 import 'package:peak_optimal/models/models.dart';
-
-const workouts = 'assets/images/workouts';
 
 final List<Workout> cardioWorkouts = [
   Workout(
