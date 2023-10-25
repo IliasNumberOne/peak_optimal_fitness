@@ -39,6 +39,12 @@ dependencies:
   go_router: ^10.0.0
   shared_preferences: ^2.2.0
   provider: ^6.0.5
+  intl: 0.17.0
+  sqflite: ^2.3.0
+  path: ^1.8.3
+  heart_bpm: ^1.1.1+0
+#  camera: ^0.10.5+5
+
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +73,7 @@ flutter:
     - assets/images/
     - assets/images/icons/
     - assets/images/tap_bar/
+    - assets/images/activity_icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -83,8 +90,24 @@ flutter:
   fonts:
     - family: NotoSansTamil
       fonts:
+        - asset: assets/fonts/NotoSansTamil-Black.ttf
+          weight: 900
+        - asset: assets/fonts/NotoSansTamil-ExtraBold.ttf
+          weight: 800
         - asset: assets/fonts/NotoSansTamil-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/NotoSansTamil-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/NotoSansTamil-Medium.ttf
+          weight: 500
         - asset: assets/fonts/NotoSansTamil-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NotoSansTamil-Light.ttf
+          weight: 300
+        - asset: assets/fonts/NotoSansTamil-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/NotoSansTamil-Thin.ttf
+          weight: 100
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -29,32 +29,40 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
       child: Column(
         children: [
           Expanded(child: widget.child),
           Visibility(
             visible: widget.hasBottomBar,
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               curve: Curves.easeInOut,
-              child: Container(
-                width: 294.w,
-                height: 88.h,
-                alignment: Alignment.topCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(
-                    tapBarItems.length,
-                    (index) => GestureDetector(
-                      onTap: () => _onTap(index, tapBarItems[index].path),
-                      child: Image.asset(
-                        widget.currentPath == tapBarItems[index].path
-                            ? tapBarItems[index].selectedImg
-                            : tapBarItems[index].regularImg,
-                        width: 52.w,
-                        height: 52.h,
-                      ),
+              width: 390.w,
+              height: 88.h,
+              padding: EdgeInsets.symmetric(horizontal: 48.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(28.r),
+                  topRight: Radius.circular(28.r),
+                ),
+                color: Colors.transparent,
+                image: const DecorationImage(
+                  image: AssetImage('assets/images/bottom_navigation.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(
+                  tapBarItems.length,
+                  (index) => GestureDetector(
+                    onTap: () => _onTap(index, tapBarItems[index].path),
+                    child: Image.asset(
+                      widget.currentPath == tapBarItems[index].path
+                          ? tapBarItems[index].selectedImg
+                          : tapBarItems[index].regularImg,
+                      width: 28.w,
+                      height: 28.h,
                     ),
                   ),
                 ),
