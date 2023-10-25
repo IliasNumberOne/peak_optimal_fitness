@@ -68,166 +68,164 @@ class _SleepScreenState extends State<SleepScreen> {
         ActivityProvider activity,
         Widget? child,
       ) {
-        return SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 25.h, left: 28.w, bottom: 16.h),
-                child: Row(
-                  children: [
-                    const BackBtn(),
-                    SizedBox(width: 8.w),
-                    Text(
-                      'Sleep',
-                      style: ThemeStyles.textStyle2,
-                    ),
-                  ],
-                ),
-              ),
-              Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.bottomCenter,
+        return Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 25.h, left: 28.w, bottom: 16.h),
+              child: Row(
                 children: [
-                  SizedBox(height: 244.h),
-                  Positioned(
-                    bottom: 22.h,
-                    child: Container(
-                      width: 332.w,
-                      height: 200.h,
-                      padding: EdgeInsets.only(
-                        top: 16.h,
-                        bottom: 36.h,
-                        left: 22.w,
-                        right: 22.w,
-                      ),
-                      decoration: BoxDecoration(
-                        color: ThemeColors.milk,
-                        borderRadius: BorderRadius.circular(32.r),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Your sleep:',
-                            style: ThemeStyles.textStyle1,
-                          ),
-                          SizedBox(height: 12.h),
-                          GestureDetector(
-                            onTap: _showDialog,
-                            child: Container(
-                              width: 286.w,
-                              height: 48.h,
-                              padding: EdgeInsets.only(left: 12.w),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: ThemeColors.gray),
-                                borderRadius: BorderRadius.circular(20.r),
-                              ),
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                _bedTime.isEmpty ? 'Bedtime' : _bedTime,
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: _bedTime.isEmpty
-                                      ? ThemeColors.gray
-                                      : ThemeColors.dark,
-                                ),
+                  const BackBtn(),
+                  SizedBox(width: 8.w),
+                  Text(
+                    'Sleep',
+                    style: ThemeStyles.textStyle2,
+                  ),
+                ],
+              ),
+            ),
+            Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.bottomCenter,
+              children: [
+                SizedBox(height: 244.h),
+                Positioned(
+                  bottom: 22.h,
+                  child: Container(
+                    width: 332.w,
+                    height: 200.h,
+                    padding: EdgeInsets.only(
+                      top: 16.h,
+                      bottom: 36.h,
+                      left: 22.w,
+                      right: 22.w,
+                    ),
+                    decoration: BoxDecoration(
+                      color: ThemeColors.milk,
+                      borderRadius: BorderRadius.circular(32.r),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Your sleep:',
+                          style: ThemeStyles.textStyle1,
+                        ),
+                        SizedBox(height: 12.h),
+                        GestureDetector(
+                          onTap: _showDialog,
+                          child: Container(
+                            width: 286.w,
+                            height: 48.h,
+                            padding: EdgeInsets.only(left: 12.w),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: ThemeColors.gray),
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              _bedTime.isEmpty ? 'Bedtime' : _bedTime,
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w400,
+                                color: _bedTime.isEmpty
+                                    ? ThemeColors.gray
+                                    : ThemeColors.dark,
                               ),
                             ),
                           ),
-                          SizedBox(height: 12.h),
-                          GestureDetector(
-                            onTap: _showDialog,
-                            child: Container(
-                              width: 286.w,
-                              height: 48.h,
-                              padding: EdgeInsets.only(left: 12.w),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: ThemeColors.gray),
-                                borderRadius: BorderRadius.circular(20.r),
-                              ),
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                _risingTime.isEmpty
-                                    ? 'Rising time'
-                                    : _risingTime,
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: _risingTime.isEmpty
-                                      ? ThemeColors.gray
-                                      : ThemeColors.dark,
-                                ),
+                        ),
+                        SizedBox(height: 12.h),
+                        GestureDetector(
+                          onTap: _showDialog,
+                          child: Container(
+                            width: 286.w,
+                            height: 48.h,
+                            padding: EdgeInsets.only(left: 12.w),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: ThemeColors.gray),
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              _risingTime.isEmpty
+                                  ? 'Rising time'
+                                  : _risingTime,
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w400,
+                                color: _risingTime.isEmpty
+                                    ? ThemeColors.gray
+                                    : ThemeColors.dark,
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      if (_bedTime.isNotEmpty && _risingTime.isNotEmpty) {
-                        activity.createSleep(_bedTime, _risingTime);
-                        _bedTime = '';
-                        _risingTime = '';
-                        setState(() {});
-                      }
-                    },
-                    child: Container(
-                      width: 200.w,
-                      height: 44.h,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 4,
-                            color: ThemeColors.shadow,
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          'ADD',
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w700,
-                            color: _bedTime.isNotEmpty && _risingTime.isNotEmpty
-                                ? ThemeColors.orange
-                                : ThemeColors.gray,
-                          ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if (_bedTime.isNotEmpty && _risingTime.isNotEmpty) {
+                      activity.createSleep(_bedTime, _risingTime);
+                      _bedTime = '';
+                      _risingTime = '';
+                      setState(() {});
+                    }
+                  },
+                  child: Container(
+                    width: 200.w,
+                    height: 44.h,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4,
+                          color: ThemeColors.shadow,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        'ADD',
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w700,
+                          color: _bedTime.isNotEmpty && _risingTime.isNotEmpty
+                              ? ThemeColors.orange
+                              : ThemeColors.gray,
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: 20.h),
-              Expanded(
-                child: activity.sleepList.isEmpty
-                    ? const NoItems(
-                        imgPath: 'assets/images/icons/no_sleep.png',
-                        text: "You haven't added your dream to the app yet",
-                      )
-                    : ListView.builder(
-                        itemCount: activity.sleepList.length,
-                        itemBuilder: (BuildContext context, index) {
-                          return ActiveItems(
-                            num: activity.sleepList[index].num,
-                            date: activity.sleepList[index].date,
-                            measure: 'h',
-                            needAddNum: true,
-                            additionalNum:
-                                '${activity.sleepList[index].bedTime} - ${activity.sleepList[index].risingTime}',
-                            onTap: () =>
-                                activity.deleteSleep(activity.sleepList[index]),
-                          );
-                        },
-                      ),
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.h),
+            Expanded(
+              child: activity.sleepList.isEmpty
+                  ? const NoItems(
+                      imgPath: 'assets/images/icons/no_sleep.png',
+                      text: "You haven't added your dream to the app yet",
+                    )
+                  : ListView.builder(
+                      itemCount: activity.sleepList.length,
+                      itemBuilder: (BuildContext context, index) {
+                        return ActiveItems(
+                          num: activity.sleepList[index].num,
+                          date: activity.sleepList[index].date,
+                          measure: 'h',
+                          needAddNum: true,
+                          additionalNum:
+                              '${activity.sleepList[index].bedTime} - ${activity.sleepList[index].risingTime}',
+                          onTap: () =>
+                              activity.deleteSleep(activity.sleepList[index]),
+                        );
+                      },
+                    ),
+            ),
+          ],
         );
       },
     );

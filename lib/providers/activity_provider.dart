@@ -5,11 +5,11 @@ import 'package:peak_optimal/services/services.dart';
 import 'package:peak_optimal/utils/utils.dart';
 
 class ActivityProvider extends ChangeNotifier {
-  final PreferenceService _preferenceService;
+  final PreferencesService _preferenceService;
   final ActivitiesService _activitiesService;
 
   ActivityProvider({
-    required PreferenceService preferenceService,
+    required PreferencesService preferenceService,
     required ActivitiesService activitiesService,
   })  : _preferenceService = preferenceService,
         _activitiesService = activitiesService;
@@ -32,7 +32,7 @@ class ActivityProvider extends ChangeNotifier {
     currentDate = formatter.format(now);
     _weightList = await _activitiesService.getAllWeights();
     _sleepList = await _activitiesService.getAllSleep();
-    checkDailyWater();
+    // checkDailyWater();
     notifyListeners();
   }
 

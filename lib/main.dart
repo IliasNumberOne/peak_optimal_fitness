@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:peak_optimal/data/data.dart';
-import 'package:peak_optimal/providers/activity_provider.dart';
+import 'package:peak_optimal/providers/providers.dart';
 import 'package:peak_optimal/screens/screens.dart';
+import 'package:peak_optimal/screens/workouts_screen.dart';
 import 'package:peak_optimal/services/services.dart';
 import 'package:peak_optimal/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final preference = await SharedPreferences.getInstance();
+  final preferences = await SharedPreferences.getInstance();
+  final preferencesService = PreferencesService(preferences);
   final sqlService = SqlService();
   await sqlService.init();
   runApp(
@@ -19,7 +21,7 @@ Future<void> main() async {
       designSize: const Size(390, 844),
       builder: (context, child) {
         return PeakOptimal(
-          preferences: preference,
+          preferenceService: preferencesService,
           sqlService: sqlService,
         );
       },
@@ -28,12 +30,12 @@ Future<void> main() async {
 }
 
 class PeakOptimal extends StatefulWidget {
-  final SharedPreferences preferences;
+  final PreferencesService preferenceService;
   final SqlService sqlService;
 
   const PeakOptimal({
     Key? key,
-    required this.preferences,
+    required this.preferenceService,
     required this.sqlService,
   }) : super(key: key);
 
@@ -82,16 +84,19 @@ class _PeakOptimalState extends State<PeakOptimal> {
         ),
         ShellRoute(
           pageBuilder: (context, state, child) {
-            final hasBottomBar = (state.fullPath != '/water_screen' &&
+            final hasBottomBar = (state.fullPath != '/' &&
                 state.fullPath != '/weight_screen' &&
                 state.fullPath != '/sleep_screen' &&
-                state.fullPath != '/pulse_screen');
+                state.fullPath != '/pulse_screen' &&
+                !state.fullPath!.contains('workout_screen'));
+            final hasSafeArea = !state.fullPath!.contains('workout_screen');
             return buildPageWithDefaultTransition(
               context: context,
               state: state,
               child: BottomNavigation(
                 currentPath: state.fullPath ?? '/',
                 hasBottomBar: hasBottomBar,
+                hasSafeArea: hasSafeArea,
                 child: child,
               ),
             );
@@ -155,7 +160,7 @@ class _PeakOptimalState extends State<PeakOptimal> {
                 return buildPageWithDefaultTransition(
                   context: context,
                   state: state,
-                  child: const Scaffold(),
+                  child: const WorkoutsScreen(),
                 );
               },
             ),
@@ -190,17 +195,21 @@ class _PeakOptimalState extends State<PeakOptimal> {
     return MultiProvider(
       providers: [
         Provider(
-          create: (BuildContext context) =>
-              PreferenceService(widget.preferences),
+          create: (BuildContext context) => widget.preferenceService,
         ),
         Provider(
           create: (context) => ActivitiesService(widget.sqlService.database),
         ),
         ChangeNotifierProvider(
           create: (context) => ActivityProvider(
-            preferenceService: context.read<PreferenceService>(),
+            preferenceService: widget.preferenceService,
             activitiesService: context.read<ActivitiesService>(),
           )..initState(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => WorkoutProvider(
+            preferencesService: widget.preferenceService,
+          ),
         ),
       ],
       builder: (BuildContext context, Widget? child) {
