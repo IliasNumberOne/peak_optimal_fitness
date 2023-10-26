@@ -6,5 +6,6 @@ export 'active_item.dart';
 export 'no_items.dart';
 export 'custom_button.dart';
 export 'custom_input.dart';
+export 'settings_btn.dart';
 export 'premium_mark.dart';
 export 'workout_card.dart';
