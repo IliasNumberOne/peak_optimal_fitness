@@ -162,6 +162,18 @@ class _PeakOptimalState extends State<PeakOptimal> {
                   child: const WorkoutsScreen(),
                 );
               },
+              routes: [
+                GoRoute(
+                  path: 'workout_screen',
+                  pageBuilder: (context, state) {
+                    return buildPageWithDefaultTransition(
+                      context: context,
+                      state: state,
+                      child: const WorkoutScreen(),
+                    );
+                  },
+                ),
+              ]
             ),
             GoRoute(
               path: tapBarItems[2].path,

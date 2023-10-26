@@ -38,6 +38,15 @@ class ThemeColors {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
+
+  static LinearGradient gradient4 = LinearGradient(
+    colors: [
+      Colors.white.withOpacity(1),
+      Colors.white.withOpacity(0),
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
 }
 
 class ThemeStyles {

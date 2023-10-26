@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:peak_optimal/data/categories.dart';
 import 'package:peak_optimal/providers/workout_provider.dart';
 import 'package:peak_optimal/utils/theme_helper.dart';
-import 'package:peak_optimal/widgets/premium_mark.dart';
 import 'package:peak_optimal/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -76,6 +76,7 @@ class WorkoutsScreen extends StatelessWidget {
                     child: WorkoutCard(
                       liked: false,
                       workout: workout,
+                      onTap: () => context.go('/workout/workout_screen'),
                     ),
                   );
                 },
