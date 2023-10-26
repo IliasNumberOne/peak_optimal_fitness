@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peak_optimal/data/categories.dart';
 import 'package:peak_optimal/providers/workout_provider.dart';
 import 'package:peak_optimal/utils/theme_helper.dart';
+import 'package:peak_optimal/widgets/premium_mark.dart';
+import 'package:peak_optimal/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class WorkoutsScreen extends StatelessWidget {
@@ -60,50 +62,23 @@ class WorkoutsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20.h),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(32),
-              child: Stack(
-                children: [
-                  Image.asset(
-                    'assets/images/workouts/image1.png',
-                    width: 332.w,
-                    height: 200.h,
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    width: 332.w,
-                    height: 200.h,
-                    decoration: BoxDecoration(
-                      gradient: ThemeColors.gradient3,
+            Expanded(
+              child: ListView.builder(
+                itemCount: categories.first.workouts.length,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 29.w,
+                  vertical: 20.h,
+                ),
+                itemBuilder: (context, index) {
+                  final workout = categories.first.workouts[index];
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 16.h),
+                    child: WorkoutCard(
+                      liked: false,
+                      workout: workout,
                     ),
-                    padding: EdgeInsets.symmetric(
-                      vertical: 16.h,
-                      horizontal: 24.w,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: ThemeColors.milk,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            'FREE',
-                            style: ThemeStyles.textStyle7.copyWith(
-                              color: ThemeColors.dark,
-                              height: 15.6 / 13,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
             ),
           ],

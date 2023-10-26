@@ -10,6 +10,7 @@ enum CategoryType {
   cardio,
   stretching,
   forWeightLoss,
+  weightGain,
 }
 
 class Category {
