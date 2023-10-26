@@ -50,23 +50,28 @@ class _BottomNavigationState extends State<BottomNavigation> {
               curve: Curves.easeInOut,
               width: 390.w,
               height: 54.h + overlay.bottom,
-              padding: EdgeInsets.symmetric(horizontal: 48.w),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(28.r),
                   topRight: Radius.circular(28.r),
                 ),
                 color: Colors.transparent,
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/bottom_navigation.png'),
-                  fit: BoxFit.fill,
-                ),
               ),
               alignment: Alignment.topCenter,
               child: Container(
                 height: 54.h,
-                padding: EdgeInsets.only(bottom: 6.h),
                 alignment: Alignment.bottomCenter,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/bottom_navigation.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                padding: EdgeInsets.only(
+                  right: 48.w,
+                  left: 48.w,
+                  bottom: 6.h,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: List.generate(

@@ -96,7 +96,7 @@ class WorkoutsScreen extends StatelessWidget {
                             'FREE',
                             style: ThemeStyles.textStyle7.copyWith(
                               color: ThemeColors.dark,
-                              height: 16 / 13,
+                              height: 15.6 / 13,
                             ),
                           ),
                         ),

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:peak_optimal/data/data.dart';
 import 'package:peak_optimal/providers/providers.dart';
 import 'package:peak_optimal/screens/screens.dart';
-import 'package:peak_optimal/screens/workouts_screen.dart';
 import 'package:peak_optimal/services/services.dart';
 import 'package:peak_optimal/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -84,7 +83,7 @@ class _PeakOptimalState extends State<PeakOptimal> {
         ),
         ShellRoute(
           pageBuilder: (context, state, child) {
-            final hasBottomBar = (state.fullPath != '/' &&
+            final hasBottomBar = (state.fullPath != '/water_screen' &&
                 state.fullPath != '/weight_screen' &&
                 state.fullPath != '/sleep_screen' &&
                 state.fullPath != '/pulse_screen' &&
