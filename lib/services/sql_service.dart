@@ -53,6 +53,14 @@ class SqlService {
         risingTime $textType
       )
     ''');
+    await db.execute('''
+      CREATE TABLE $pulseTable (
+        id $idType,
+        date $textType,
+        num $textType,
+        additionalNum $textType
+      )
+    ''');
   }
 
 

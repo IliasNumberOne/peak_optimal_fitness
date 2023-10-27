@@ -14,13 +14,21 @@ class ActivityProvider extends ChangeNotifier {
   })  : _preferenceService = preferenceService,
         _activitiesService = activitiesService;
 
+  final List<String> _waterActivity = [];
   int _waterGlass = 0;
   List<ActivityItem> _weightList = [];
   List<SleepItem> _sleepList = [];
+  List<ActivityItem> _pulseList = [];
+
+  List<String> get waterActivity => _waterActivity;
 
   int get waterGlass => _waterGlass;
+
   List<ActivityItem> get weightList => _weightList;
+
   List<SleepItem> get sleepList => _sleepList;
+
+  List<ActivityItem> get pulseList => _pulseList;
 
   var now = DateTime.now().withZeroTime;
   var formatter = DateFormat('dd.MM.yyyy');
@@ -30,6 +38,7 @@ class ActivityProvider extends ChangeNotifier {
     currentDate = formatter.format(now);
     _weightList = await _activitiesService.getAllWeights();
     _sleepList = await _activitiesService.getAllSleep();
+    _pulseList = await _activitiesService.getAllPulse();
     _waterGlass = _preferenceService.getDailyWaterCount();
     notifyListeners();
   }
@@ -45,9 +54,8 @@ class ActivityProvider extends ChangeNotifier {
   void createWeight(double weight) async {
     double round = double.parse(weight.toStringAsFixed(1));
     String weightDifferent = '';
-    double subtraction = _weightList.isEmpty
-        ? 0
-        : weight - _weightList.last.num;
+    double subtraction =
+        _weightList.isEmpty ? 0 : weight - _weightList.last.num;
     if (subtraction > 0) {
       weightDifferent = '+${subtraction.toStringAsFixed(1)}';
     } else {
@@ -65,17 +73,22 @@ class ActivityProvider extends ChangeNotifier {
   }
 
   void deleteWeight(ActivityItem activityItem) async {
-   await _activitiesService.deleteWeight(activityItem);
-   _weightList = await _activitiesService.getAllWeights();
-   notifyListeners();
+    await _activitiesService.deleteWeight(activityItem);
+    _weightList = await _activitiesService.getAllWeights();
+    notifyListeners();
   }
 
-  void createSleep(String bedTime, String risingTime) async{
-    DateTime durationStart =  DateFormat.Hm().parse(bedTime);
-    DateTime durationEnd =  DateFormat.Hm().parse(risingTime);
-    DateTime timeSubtraction = DateFormat.Hm().parse(durationStart.difference(durationEnd).abs().toString());
-    if(durationStart.isAfter(durationEnd)) {
-      timeSubtraction = DateFormat.Hm().parse(DateFormat.Hm().parse('24:00').difference(timeSubtraction).abs().toString());
+  void createSleep(String bedTime, String risingTime) async {
+    DateTime durationStart = DateFormat.Hm().parse(bedTime);
+    DateTime durationEnd = DateFormat.Hm().parse(risingTime);
+    DateTime timeSubtraction = DateFormat.Hm()
+        .parse(durationStart.difference(durationEnd).abs().toString());
+    if (durationStart.isAfter(durationEnd)) {
+      timeSubtraction = DateFormat.Hm().parse(DateFormat.Hm()
+          .parse('24:00')
+          .difference(timeSubtraction)
+          .abs()
+          .toString());
     }
     String timeDiff = DateFormat.Hm().format(timeSubtraction);
     SleepItem sleepItem = SleepItem(
@@ -89,9 +102,28 @@ class ActivityProvider extends ChangeNotifier {
     _sleepList = await _activitiesService.getAllSleep();
     notifyListeners();
   }
+
   void deleteSleep(SleepItem sleepItem) async {
     await _activitiesService.deleteSleep(sleepItem);
     _sleepList = await _activitiesService.getAllSleep();
+    notifyListeners();
+  }
+
+  void createPulse(int bpmValue) async {
+    ActivityItem pulseItem = ActivityItem(
+      id: 0,
+      date: currentDate,
+      num: bpmValue.toDouble(),
+      additionalNum: '',
+    );
+    await _activitiesService.createPulseList(pulseItem);
+    _pulseList = await _activitiesService.getAllPulse();
+    notifyListeners();
+  }
+
+  void deletePulse(ActivityItem pulseItem) async {
+    await _activitiesService.deletePulse(pulseItem);
+    _pulseList = await _activitiesService.getAllPulse();
     notifyListeners();
   }
 }

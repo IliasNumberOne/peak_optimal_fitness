@@ -58,7 +58,16 @@ class _PulseScreenState extends State<PulseScreen> {
                 ),
               ),
               GestureDetector(
-                onTap: _onBPM,
+                onTap: () async {
+                  setState(() => measuring = true);
+                  await Future.delayed(const Duration(seconds: 15));
+                  activity.createPulse(_bpmValue);
+                  _bpmValue = 0;
+                  setState(() {
+                    measuring = false;
+                    measured = true;
+                  });
+                },
                 child: Container(
                   width: 332.w,
                   height: 135.h,
@@ -136,24 +145,21 @@ class _PulseScreenState extends State<PulseScreen> {
               ),
               SizedBox(height: 20.h),
               Expanded(
-                child: 1 > 0
+                child: activity.pulseList.isEmpty
                     ? const NoItems(
                         imgPath: 'assets/images/icons/no_pulse.png',
                         text:
                             "You have not yet added your \nheart rate to the app",
                       )
                     : ListView.builder(
-                        itemCount: activity.weightList.length,
+                        itemCount: activity.pulseList.length,
                         itemBuilder: (BuildContext context, index) {
                           return ActiveItems(
-                            num: activity.weightList[index].num.toString(),
-                            date: activity.weightList[index].date,
-                            measure: 'kg',
-                            needAddNum: true,
-                            additionalNum:
-                                "${activity.weightList[index].additionalNum} kg",
+                            num: activity.pulseList[index].num.toString(),
+                            date: activity.pulseList[index].date,
+                            measure: 'bpm',
                             onTap: () => activity
-                                .deleteWeight(activity.weightList[index]),
+                                .deletePulse(activity.pulseList[index]),
                           );
                         },
                       ),

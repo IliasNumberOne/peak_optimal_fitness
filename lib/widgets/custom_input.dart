@@ -6,21 +6,23 @@ class CustomInput extends StatefulWidget {
   const CustomInput({
     super.key,
     required this.controller,
+    required this.focusNode,
+    this.update,
   });
 
   final TextEditingController controller;
+  final FocusNode focusNode;
+  final VoidCallback? update;
 
   @override
   State<CustomInput> createState() => _CustomInputState();
 }
 
 class _CustomInputState extends State<CustomInput> {
-  final _focusNode = FocusNode();
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _focusNode.requestFocus,
+      onTap: widget.focusNode.requestFocus,
       child: Container(
         width: 286.w,
         height: 48.h,
@@ -31,7 +33,7 @@ class _CustomInputState extends State<CustomInput> {
         ),
         child: Center(
           child: TextField(
-            focusNode: _focusNode,
+            focusNode: widget.focusNode,
             controller: widget.controller,
             keyboardType: TextInputType.number,
             decoration: InputDecoration.collapsed(
