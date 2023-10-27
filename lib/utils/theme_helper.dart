@@ -95,7 +95,7 @@ class ThemeStyles {
   static final TextStyle textStyle7 = TextStyle(
     fontSize: 13.sp,
     fontWeight: FontWeight.w400,
-    height: 15 / 13,
+    height: 15.6 / 13,
     letterSpacing: -0.3,
     color: ThemeColors.orange,
   );
@@ -111,6 +111,8 @@ class ThemeStyles {
   static final TextStyle textStyle9 = TextStyle(
     fontSize: 19.sp,
     fontWeight: FontWeight.w700,
+    height: 23.56 / 19,
+    letterSpacing: -0.3,
     color: ThemeColors.orange,
   );
 

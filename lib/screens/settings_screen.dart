@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peak_optimal/screens/screens.dart';
 import 'package:peak_optimal/utils/utils.dart';
 import 'package:peak_optimal/widgets/widgets.dart';
 
@@ -21,28 +22,26 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
         ),
-        const PremiumCard(),
-        SizedBox(height: 16.h),
-        GestureDetector(
-          onTap: () {},
-          child: const SettingsBtn(text: 'Privacy policy'),
+        PremiumCard(
+          onTap: () => _onTapPremium(context),
         ),
         SizedBox(height: 16.h),
-        GestureDetector(
-          onTap: () {},
-          child: const SettingsBtn(text: 'Terms of use'),
-        ),
+        const SettingsBtn(text: 'Privacy policy'),
         SizedBox(height: 16.h),
-        GestureDetector(
-          onTap: () {},
-          child: const SettingsBtn(text: 'Support'),
-        ),
+        const SettingsBtn(text: 'Terms of use'),
         SizedBox(height: 16.h),
-        GestureDetector(
-          onTap: () {},
-          child: const SettingsBtn(text: 'Restore purchases'),
-        ),
+        const SettingsBtn(text: 'Support'),
+        SizedBox(height: 16.h),
+        const SettingsBtn(text: 'Restore purchases'),
       ],
     );
+  }
+
+  void _onTapPremium(BuildContext context) {
+    final route = MaterialPageRoute(
+      builder: (context) => const PremiumScreen(),
+    );
+
+    Navigator.of(context, rootNavigator: true).push(route);
   }
 }

@@ -181,7 +181,7 @@ class _PeakOptimalState extends State<PeakOptimal> {
                 return buildPageWithDefaultTransition(
                   context: context,
                   state: state,
-                  child: const Scaffold(),
+                  child: const StatisticsScreen(),
                 );
               },
             ),

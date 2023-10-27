@@ -6,3 +6,4 @@ export 'chest_back_workouts.dart';
 export 'legs_workouts.dart';
 export 'shoulders_workouts.dart';
 export 'cardio_workouts.dart';
+export 'statistics_list.dart';

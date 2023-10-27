@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peak_optimal/data/activities.dart';
 import 'package:peak_optimal/providers/providers.dart';
+import 'package:peak_optimal/screens/premium_screen.dart';
 import 'package:peak_optimal/utils/utils.dart';
 import 'package:peak_optimal/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,9 @@ class MainScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(height: 16.h),
-                        const PremiumCard(),
+                        PremiumCard(
+                          onTap: () => _onTapPremium(context),
+                        ),
                         SizedBox(height: 20.h),
                         ActivityCard(
                           activity: activities[0],
@@ -54,7 +57,8 @@ class MainScreen extends StatelessWidget {
                         SizedBox(height: 16.h),
                         ActivityCard(
                           activity: activities[2],
-                          number: activity.weightList.lastOrNull?.num.toString(),
+                          number:
+                              activity.weightList.lastOrNull?.num.toString(),
                           lastDate: activity.weightList.lastOrNull?.date,
                           weightDiff:
                               activity.weightList.lastOrNull?.additionalNum,
@@ -74,5 +78,13 @@ class MainScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _onTapPremium(BuildContext context) {
+    final route = MaterialPageRoute(
+      builder: (context) => const PremiumScreen(),
+    );
+
+    Navigator.of(context, rootNavigator: true).push(route);
   }
 }

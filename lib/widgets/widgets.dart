@@ -9,3 +9,4 @@ export 'custom_input.dart';
 export 'settings_btn.dart';
 export 'premium_mark.dart';
 export 'workout_card.dart';
+export 'chart_widget.dart';

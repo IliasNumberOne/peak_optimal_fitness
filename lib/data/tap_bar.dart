@@ -23,18 +23,18 @@ final List<TapBar> tapBarItems = [
     id: 1,
     regularImg: "assets/images/tap_bar/workout.png",
     selectedImg: "assets/images/tap_bar/workout_selected.png",
-    path: '/workout',
+    path: '/workouts_screen',
   ),
   const TapBar(
     id: 2,
     regularImg: "assets/images/tap_bar/statistic.png",
     selectedImg: "assets/images/tap_bar/statistic_selected.png",
-    path: '/statistic',
+    path: '/statistics_screen',
   ),
   const TapBar(
     id: 3,
     regularImg: "assets/images/tap_bar/settings.png",
     selectedImg: "assets/images/tap_bar/settings_selected.png",
-    path: '/settings',
+    path: '/settings_screen',
   ),
 ];
