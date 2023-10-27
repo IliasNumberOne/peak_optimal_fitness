@@ -38,8 +38,8 @@ class WorkoutsScreen extends StatelessWidget {
                   children: List.generate(
                     categories.length,
                     (index) {
-                      final selected = index == 0;
                       final category = categories[index];
+                      final selected = value.category == category;
                       final gradient = selected
                           ? ThemeColors.gradient1
                           : ThemeColors.gradient2;
@@ -49,10 +49,13 @@ class WorkoutsScreen extends StatelessWidget {
                           shaderCallback: (Rect bounds) {
                             return gradient.createShader(bounds);
                           },
-                          child: Text(
-                            category.name,
-                            style: ThemeStyles.textStyle8.copyWith(
-                              color: Colors.white,
+                          child: GestureDetector(
+                            onTap: () => value.changeCategory(category),
+                            child: Text(
+                              category.name,
+                              style: ThemeStyles.textStyle8.copyWith(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -64,19 +67,24 @@ class WorkoutsScreen extends StatelessWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: categories.first.workouts.length,
+                itemCount: value.workouts.length,
                 padding: EdgeInsets.symmetric(
                   horizontal: 29.w,
                   vertical: 20.h,
                 ),
                 itemBuilder: (context, index) {
-                  final workout = categories.first.workouts[index];
+                  final workout = value.workouts[index];
+                  final liked = value.favorites.contains(workout.id);
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.h),
                     child: WorkoutCard(
-                      liked: false,
+                      liked: liked,
                       workout: workout,
-                      onTap: () => context.go('/workout/workout_screen'),
+                      onLike: () => value.onLike(workout),
+                      onTap: () {
+                        value.setWorkout(workout);
+                        context.go('/workouts_screen/workout_screen');
+                      },
                     ),
                   );
                 },

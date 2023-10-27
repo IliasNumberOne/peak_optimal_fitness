@@ -14,12 +14,10 @@ class ActivityProvider extends ChangeNotifier {
   })  : _preferenceService = preferenceService,
         _activitiesService = activitiesService;
 
-  final List<String> _waterActivity = [];
   int _waterGlass = 0;
   List<ActivityItem> _weightList = [];
   List<SleepItem> _sleepList = [];
 
-  List<String> get waterActivity => _waterActivity;
   int get waterGlass => _waterGlass;
   List<ActivityItem> get weightList => _weightList;
   List<SleepItem> get sleepList => _sleepList;
@@ -32,23 +30,14 @@ class ActivityProvider extends ChangeNotifier {
     currentDate = formatter.format(now);
     _weightList = await _activitiesService.getAllWeights();
     _sleepList = await _activitiesService.getAllSleep();
-    // checkDailyWater();
+    _waterGlass = _preferenceService.getDailyWaterCount();
     notifyListeners();
   }
 
-  void checkDailyWater() {
-    if (_waterActivity[1].isNotEmpty &&
-        DateFormat('dd.MM.yyyy').parse(_waterActivity[1]).isBefore(now)) {
-      _waterGlass = 0;
-    } else {
-      _waterGlass = int.parse(_waterActivity[0]);
-    }
-  }
-
-  void drinkWater() {
+  void drinkWater() async {
     if (_waterGlass < 8) {
       _waterGlass++;
-      _waterActivity[1] = currentDate;
+      await _preferenceService.updateDailyWater(_waterGlass);
       notifyListeners();
     }
   }

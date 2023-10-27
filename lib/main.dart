@@ -220,7 +220,7 @@ class _PeakOptimalState extends State<PeakOptimal> {
         ChangeNotifierProvider(
           create: (context) => WorkoutProvider(
             preferencesService: widget.preferenceService,
-          ),
+          )..init(),
         ),
       ],
       builder: (BuildContext context, Widget? child) {

@@ -31,6 +31,10 @@ class ActivityItem {
 
   ActivityItem copyWith({required int id}) {
     return ActivityItem(
-        id: id, date: date, num: num, additionalNum: additionalNum);
+      id: id,
+      date: date,
+      num: num,
+      additionalNum: additionalNum,
+    );
   }
 }

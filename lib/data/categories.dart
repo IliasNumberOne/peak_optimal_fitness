@@ -55,24 +55,24 @@ final List<Category> categories = [
     id: 6,
     name: 'Cardio',
     categoryType: CategoryType.cardio,
-    workouts: armsWorkouts,
+    workouts: cardioWorkouts,
   ),
   Category(
     id: 7,
     name: 'Stretching',
     categoryType: CategoryType.stretching,
-    workouts: armsWorkouts,
+    workouts: stretchingWorkouts,
   ),
   Category(
     id: 8,
     name: 'For weight loss',
     categoryType: CategoryType.forWeightLoss,
-    workouts: armsWorkouts,
+    workouts: weightLossWorkouts,
   ),
   Category(
     id: 9,
     name: 'Weight gain',
     categoryType: CategoryType.weightGain,
-    workouts: armsWorkouts,
+    workouts: weightGainWorkouts,
   ),
 ];

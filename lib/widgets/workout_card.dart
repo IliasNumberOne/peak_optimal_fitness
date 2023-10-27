@@ -10,9 +10,11 @@ class WorkoutCard extends StatelessWidget {
     this.onTap,
     required this.liked,
     required this.workout,
+    this.onLike,
   });
 
   final VoidCallback? onTap;
+  final VoidCallback? onLike;
   final bool liked;
   final Workout workout;
 
@@ -48,12 +50,15 @@ class WorkoutCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       PremiumMark(premium: workout.premium),
-                      Image.asset(
-                        'assets/images/icons/like.png',
-                        width: 24.w,
-                        height: 24.h,
-                        color: liked ? ThemeColors.red : null,
-                        fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: onLike,
+                        child: Image.asset(
+                          'assets/images/icons/like.png',
+                          width: 24.w,
+                          height: 24.h,
+                          color: liked ? ThemeColors.red : null,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ],
                   ),

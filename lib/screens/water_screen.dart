@@ -22,7 +22,7 @@ class WaterScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: 25.h, left: 28.w, bottom: 16.h),
               child: Row(
                 children: [
-                  BackBtn(),
+                  const BackBtn(),
                   SizedBox(width: 8.w),
                   Text(
                     'Water',
