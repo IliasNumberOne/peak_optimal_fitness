@@ -49,7 +49,7 @@ class _PeakOptimalState extends State<PeakOptimal> {
   void initState() {
     super.initState();
     _router = GoRouter(
-      initialLocation: '/',
+      initialLocation: '/splash_screen',
       routes: [
         GoRoute(
           path: '/splash_screen',
@@ -67,7 +67,7 @@ class _PeakOptimalState extends State<PeakOptimal> {
             return buildPageWithDefaultTransition(
               context: context,
               state: state,
-              child: const PremiumScreen(),
+              child: PremiumScreen(onClose: () => context.go('/')),
             );
           },
         ),

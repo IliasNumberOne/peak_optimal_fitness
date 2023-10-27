@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:peak_optimal/utils/theme_helper.dart';
 import 'package:peak_optimal/widgets/widgets.dart';
 
 class PremiumScreen extends StatelessWidget {
-  const PremiumScreen({super.key});
+  const PremiumScreen({
+    super.key,
+    this.onClose,
+  });
+
+  final VoidCallback? onClose;
 
   @override
   Widget build(BuildContext context) {
@@ -96,10 +102,13 @@ class PremiumScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 16.h),
-                  Image.asset(
-                    'assets/images/no_thanks.png',
-                    height: 24.h,
-                    fit: BoxFit.contain,
+                  GestureDetector(
+                    onTap: (onClose ?? context.pop),
+                    child: Image.asset(
+                      'assets/images/no_thanks.png',
+                      height: 24.h,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ],
               ),

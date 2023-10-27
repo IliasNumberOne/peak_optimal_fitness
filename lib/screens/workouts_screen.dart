@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:peak_optimal/data/categories.dart';
 import 'package:peak_optimal/providers/workout_provider.dart';
+import 'package:peak_optimal/screens/screens.dart';
 import 'package:peak_optimal/utils/theme_helper.dart';
 import 'package:peak_optimal/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -75,6 +76,7 @@ class WorkoutsScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final workout = value.workouts[index];
                   final liked = value.favorites.contains(workout.id);
+                  final locked = !value.premium && workout.premium;
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.h),
                     child: WorkoutCard(
@@ -82,6 +84,10 @@ class WorkoutsScreen extends StatelessWidget {
                       workout: workout,
                       onLike: () => value.onLike(workout),
                       onTap: () {
+                        if(locked) {
+                          _onTapPremium(context);
+                          return;
+                        }
                         value.setWorkout(workout);
                         context.go('/workouts_screen/workout_screen');
                       },
@@ -94,5 +100,13 @@ class WorkoutsScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _onTapPremium(BuildContext context) {
+    final route = MaterialPageRoute(
+      builder: (context) => const PremiumScreen(),
+    );
+
+    Navigator.of(context, rootNavigator: true).push(route);
   }
 }
