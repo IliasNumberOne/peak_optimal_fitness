@@ -27,6 +27,7 @@ class _WeightScreenState extends State<WeightScreen> {
   }
 
   final controller = TextEditingController();
+  final focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class _WeightScreenState extends State<WeightScreen> {
                           style: ThemeStyles.textStyle1,
                         ),
                         SizedBox(height: 12.h),
-                        CustomInput(controller: controller),
+                        CustomInput(controller: controller, focusNode: focusNode),
                       ],
                     ),
                   ),
@@ -87,6 +88,7 @@ class _WeightScreenState extends State<WeightScreen> {
                 GestureDetector(
                   onTap: () {
                     if (controller.text.isNotEmpty) {
+                      focusNode.unfocus();
                       activity.createWeight(double.parse(controller.text));
                       controller.clear();
                     }
@@ -110,9 +112,9 @@ class _WeightScreenState extends State<WeightScreen> {
                         style: TextStyle(
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w700,
-                          color: controller.text.isEmpty
-                              ? ThemeColors.gray
-                              : ThemeColors.orange,
+                          color: controller.text.isNotEmpty
+                              ? ThemeColors.orange
+                              : ThemeColors.gray,
                         ),
                       ),
                     ),
