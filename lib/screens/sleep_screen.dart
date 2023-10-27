@@ -28,7 +28,7 @@ class _SleepScreenState extends State<SleepScreen> {
     );
   }
 
-  void _showDialog() {
+  void _showDialog(bool _isBedTime) {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => Container(
@@ -47,7 +47,11 @@ class _SleepScreenState extends State<SleepScreen> {
             // This is called when the user changes the dateTime.
             onDateTimeChanged: (DateTime newTime) {
               setState(() {
-                _bedTime = DateFormat.Hm().format(newTime).toString();
+                if(_isBedTime){
+                  _bedTime = DateFormat.Hm().format(newTime).toString();
+                } else{
+                  _risingTime = DateFormat.Hm().format(newTime).toString();
+                }
               });
             },
           ),
@@ -112,7 +116,7 @@ class _SleepScreenState extends State<SleepScreen> {
                         ),
                         SizedBox(height: 12.h),
                         GestureDetector(
-                          onTap: _showDialog,
+                          onTap: () => _showDialog(true),
                           child: Container(
                             width: 286.w,
                             height: 48.h,
@@ -136,7 +140,7 @@ class _SleepScreenState extends State<SleepScreen> {
                         ),
                         SizedBox(height: 12.h),
                         GestureDetector(
-                          onTap: _showDialog,
+                          onTap: () => _showDialog(false),
                           child: Container(
                             width: 286.w,
                             height: 48.h,
@@ -147,9 +151,7 @@ class _SleepScreenState extends State<SleepScreen> {
                             ),
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              _risingTime.isEmpty
-                                  ? 'Rising time'
-                                  : _risingTime,
+                              _risingTime.isEmpty ? 'Rising time' : _risingTime,
                               style: TextStyle(
                                 fontSize: 15.sp,
                                 fontWeight: FontWeight.w400,
