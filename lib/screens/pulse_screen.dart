@@ -61,11 +61,15 @@ class _PulseScreenState extends State<PulseScreen> {
                 onTap: () async {
                   setState(() => measuring = true);
                   await Future.delayed(const Duration(seconds: 15));
-                  activity.createPulse(_bpmValue);
-                  _bpmValue = 0;
                   setState(() {
                     measuring = false;
                     measured = true;
+                  });
+                  activity.createPulse(_bpmValue);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  setState(() {
+                    measuring = false;
+                    measured = false;
                   });
                 },
                 child: Container(

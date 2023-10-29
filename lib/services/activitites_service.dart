@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:peak_optimal/models/models.dart';
 import 'package:sqflite/sqlite_api.dart';
 
@@ -13,7 +14,11 @@ class ActivitiesService {
   Future<ActivityItem> createWeightList(ActivityItem activityItem) async {
     final map = activityItem.toMap();
     map['id'] = null;
-    final id = await database.insert(weightTable, map);
+    final id = await database.insert(
+      weightTable,
+      map,
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
     return activityItem.copyWith(id: id);
   }
 
@@ -35,7 +40,11 @@ class ActivitiesService {
   Future<SleepItem> createSleepList(SleepItem sleepItem) async {
     final map = sleepItem.toMap();
     map['id'] = null;
-    final id = await database.insert(sleepTable, map);
+    final id = await database.insert(
+      sleepTable,
+      map,
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
     return sleepItem.copyWith(id: id);
   }
 
@@ -57,7 +66,11 @@ class ActivitiesService {
   Future<ActivityItem> createPulseList(ActivityItem pulseItem) async {
     final map = pulseItem.toMap();
     map['id'] = null;
-    final id = await database.insert(pulseTable, map);
+    final id = await database.insert(
+      pulseTable,
+      map,
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
     return pulseItem.copyWith(id: id);
   }
 
@@ -74,5 +87,38 @@ class ActivitiesService {
       where: 'id = ?',
       whereArgs: [pulseItem.id],
     );
+  }
+
+  Future<bool> checkSleep() async {
+    var formatter = DateFormat('dd.MM.yyyy');
+    final currentDate = formatter.format(DateTime.now());
+    final map = await database.query(
+      sleepTable,
+      where: 'date',
+      whereArgs: [currentDate],
+    );
+    return map.isEmpty;
+  }
+
+  Future<bool> checkWeight() async {
+    var formatter = DateFormat('dd.MM.yyyy');
+    final currentDate = formatter.format(DateTime.now());
+    final map = await database.query(
+      weightTable,
+      where: 'date',
+      whereArgs: [currentDate],
+    );
+    return map.isEmpty;
+  }
+
+  Future<bool> checkPulse() async {
+    var formatter = DateFormat('dd.MM.yyyy');
+    final currentDate = formatter.format(DateTime.now());
+    final map = await database.query(
+      pulseTable,
+      where: 'date',
+      whereArgs: [currentDate],
+    );
+    return map.isEmpty;
   }
 }

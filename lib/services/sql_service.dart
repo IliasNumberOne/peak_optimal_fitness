@@ -57,7 +57,7 @@ class SqlService {
       CREATE TABLE $pulseTable (
         id $idType,
         date $textType,
-        num $textType,
+        num $doubleType,
         additionalNum $textType
       )
     ''');

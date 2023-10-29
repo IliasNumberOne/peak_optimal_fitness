@@ -4,3 +4,4 @@ export 'sleep_item.dart';
 export 'workout.dart';
 export 'category.dart';
 export 'statistics.dart';
+export 'stat_item.dart';

@@ -52,6 +52,8 @@ class ActivityProvider extends ChangeNotifier {
   }
 
   void createWeight(double weight) async {
+    final check = await _activitiesService.checkWeight();
+    if(!check) return;
     double round = double.parse(weight.toStringAsFixed(1));
     String weightDifferent = '';
     double subtraction =
@@ -79,6 +81,8 @@ class ActivityProvider extends ChangeNotifier {
   }
 
   void createSleep(String bedTime, String risingTime) async {
+    final check = await _activitiesService.checkSleep();
+    if(!check) return;
     DateTime durationStart = DateFormat.Hm().parse(bedTime);
     DateTime durationEnd = DateFormat.Hm().parse(risingTime);
     DateTime timeSubtraction = DateFormat.Hm()
@@ -110,6 +114,8 @@ class ActivityProvider extends ChangeNotifier {
   }
 
   void createPulse(int bpmValue) async {
+    final check = await _activitiesService.checkPulse();
+    if(!check) return;
     ActivityItem pulseItem = ActivityItem(
       id: 0,
       date: currentDate,

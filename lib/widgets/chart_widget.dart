@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+import 'package:peak_optimal/models/models.dart';
 import 'package:peak_optimal/utils/utils.dart';
 
 class ChartWidget extends StatefulWidget {
@@ -11,7 +13,7 @@ class ChartWidget extends StatefulWidget {
     this.defaultStep = 10,
   });
 
-  final List<double> values;
+  final List<StatItem> values;
   final String measure;
   final int defaultMin;
   final int defaultStep;
@@ -37,15 +39,14 @@ class _ChartWidgetState extends State<ChartWidget> {
     rates.clear();
     minValue = widget.defaultMin;
     if (widget.values.isEmpty) {
-      minValue = widget.defaultMin;
       step = widget.defaultStep;
     } else {
       for (final item in widget.values) {
-        if (maxValue < item) {
-          maxValue = item.ceil();
+        if (maxValue < item.value) {
+          maxValue = item.value.ceil();
         }
-        if (minValue > item) {
-          minValue = item.floor();
+        if (minValue > item.value) {
+          minValue = item.value.floor();
         }
       }
 
@@ -57,16 +58,26 @@ class _ChartWidgetState extends State<ChartWidget> {
       print('object');
       print(maxValue);
       print('minValue $minValue');
-      if((widget.defaultStep).toString().length >= 2) {
+      if ((widget.defaultStep).toString().length >= 2) {
         step = (((maxValue - minValue) / 60).ceil()) * pow(item - 1);
       } else {
-        if((maxValue - minValue).toString().length >= 2) {
+        if ((maxValue - minValue).toString().length >= 2) {
           step = ((maxValue - minValue) ~/ 6) + 2;
         } else {
           step = ((maxValue - minValue) / 6).ceil();
         }
       }
-      print('step $step');
+      maxValue += step;
+      if ((widget.defaultStep).toString().length >= 2) {
+        step = (((maxValue - minValue) / 60).ceil()) * pow(item - 1);
+      } else {
+        if ((maxValue - minValue).toString().length >= 2) {
+          step = ((maxValue - minValue) ~/ 6) + 2;
+        } else {
+          step = ((maxValue - minValue) / 6).ceil();
+        }
+      }
+      if (step == 0) step = widget.defaultStep;
     }
     int item = minValue;
     for (int i = 6; i > 0; i--) {
@@ -164,14 +175,14 @@ class _ChartWidgetState extends State<ChartWidget> {
                     children: List.generate(
                       widget.values.length,
                       (index) {
+                        final stat = widget.values[index];
                         final spacing = (221.h / 7);
                         final commonPercent = rates.first / step;
                         final commonHeight = spacing * commonPercent;
-                        final percent = commonPercent > 6
+                        final percent = (commonPercent > 6)
                             ? (commonPercent - 6) / commonPercent
                             : 0;
-                        final temp = (widget.values[index] / rates.first) - percent;
-                        print(temp);
+                        final temp = (stat.value / rates.first) - percent;
                         return Padding(
                           padding: EdgeInsets.only(right: 12.w),
                           child: Container(
@@ -182,6 +193,13 @@ class _ChartWidgetState extends State<ChartWidget> {
                               borderRadius: const BorderRadius.vertical(
                                 top: Radius.circular(8),
                               ),
+                            ),
+                            alignment: Alignment.bottomCenter,
+                            child: Text(
+                              DateFormat('dd.MM').format(
+                                stat.dateTime,
+                              ),
+                              style: ThemeStyles.textStyle15,
                             ),
                           ),
                         );

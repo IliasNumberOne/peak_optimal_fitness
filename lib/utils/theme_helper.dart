@@ -149,4 +149,12 @@ class ThemeStyles {
     letterSpacing: -0.3,
     color: ThemeColors.dark,
   );
+
+  static final TextStyle textStyle15 = TextStyle(
+    fontSize: 11.sp,
+    fontWeight: FontWeight.w400,
+    height: 16 / 11,
+    letterSpacing: -0.5,
+    color: Colors.white,
+  );
 }

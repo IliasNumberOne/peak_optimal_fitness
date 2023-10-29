@@ -12,6 +12,7 @@ class PreferencesService {
   static const completedWorkoutsKey = "WORKOUTS";
   static const datesKey = "DATES";
   static const waterKey = "WATER";
+  static const firstInit = 'FIRST_INIT';
 
   Future<void> setPremium() async {
     await preferences.setBool(premiumKey, true);
@@ -78,5 +79,13 @@ class PreferencesService {
     final date = DateTime.now().withZeroTime.microsecondsSinceEpoch.toString();
     final count =  preferences.getInt(waterKey + date) ?? 0;
     return count;
+  }
+
+  Future<void> setFirstInit() async {
+    await preferences.setBool(firstInit, false);
+  }
+
+  bool getFirstInit() {
+    return preferences.getBool(firstInit) ?? true;
   }
 }
